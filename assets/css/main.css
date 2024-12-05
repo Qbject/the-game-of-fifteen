@@ -141,7 +141,9 @@ body {
 }
 
 .fifteen_field .item {
-	display: inline-block;
+	display: grid;
+	align-items: center;
+	justify-items: center;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -152,17 +154,13 @@ body {
 	background-color: #d18339;
 	cursor: pointer;
 	color: black;
-	font-family: "Comic Sans MS";
+	font-family: "Arial";
 	font-size: 60px;
 	text-align: center;
-	padding: 24px 0;
 	border: 3px solid black;
 	transition-property: top, left, opacity, transform;
 	transition-duration: 100ms;
 	transition-timing-function: ease-in;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	background-image: radial-gradient(transparent 60%, rgba(0, 0, 0, 0.2));
 }
