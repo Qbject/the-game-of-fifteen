@@ -14,7 +14,6 @@ class Fifteen_game {
 		var field_width = ITEMS_HORIZONTAL * 125 + "px";
 		var field_height = ITEMS_VERTICAL * 125 + "px";
 		this.finished = false;
-		this.flushing = false;
 		this.animation_style = document.head.appendChild(
 			document.createElement("style")
 		);
@@ -110,34 +109,6 @@ class Fifteen_game {
 		shuffle_x2_array(this.map);
 	}
 
-	fancy_flush() {
-		this.flushing = true;
-		this.main_node.classList.add("flushing");
-		this.refresh_button_node.classList.add("active");
-
-		var iterations = 128;
-		var this_game = this;
-		var interval_index = setInterval(function () {
-			iterations--;
-			var prev_item = null;
-			while (true) {
-				var rnd_x = rnd_num(0, ITEMS_HORIZONTAL - 1);
-				var rnd_y = rnd_num(0, ITEMS_VERTICAL - 1);
-				var cur_item = this_game.map[rnd_x][rnd_y];
-				if (cur_item === null) continue;
-				if (cur_item === prev_item) continue;
-				prev_item = cur_item;
-				if (this_game.click(cur_item.node, this_game)) break;
-			}
-			if (iterations === 0) {
-				this_game.main_node.classList.remove("flushing");
-				this_game.flushing = false;
-				this_game.refresh_button_node.classList.remove("active");
-				clearInterval(interval_index);
-			}
-		}, 40);
-	}
-
 	click(target, this_game) {
 		if (this.finished) return false;
 		var x = +target.dataset.x;
@@ -151,15 +122,14 @@ class Fifteen_game {
 		if (y > empty.y) this_game.move(x, y, DIRECTION_UP);
 
 		this_game.update_layout();
-		if (!this.flushing && this.is_completed())
+		if (this.is_completed())
 			setTimeout(function () {
 				this_game.finish();
 			}, 500);
 
-		if (!this_game.flushing)
-			setTimeout(function () {
-				this_game.move_audio.play();
-			}, 0);
+		setTimeout(function () {
+			this_game.move_audio.play();
+		}, 0);
 		return true;
 	}
 
@@ -249,16 +219,8 @@ class Fifteen_game {
 	}
 
 	refresh_click(this_game) {
-		if (this_game.flushing) return;
-		if (this_game.finished) {
-			this_game.start();
-			this_game.refresh_button_node.classList.add("active");
-			setTimeout(function () {
-				this_game.refresh_button_node.classList.remove("active");
-			}, 500);
-			return;
-		}
-		this_game.fancy_flush();
+		this_game.flush();
+		this_game.update_layout();
 	}
 }
 
