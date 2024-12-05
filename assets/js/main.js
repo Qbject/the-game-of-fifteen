@@ -26,7 +26,6 @@ class Fifteen_game {
 			document.createElement("div")
 		);
 		this.container_node.classList.add("fifteen_container");
-		this.container_node.style.width = field_width;
 
 		this.main_node = this.container_node.appendChild(
 			document.createElement("div")

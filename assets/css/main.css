@@ -1,45 +1,137 @@
 /*<reset>*/
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,a,img,ins,kbd,q,s,samp,tt,var,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display: block}
-body{line-height:1}
-ol,ul{list-style:none}
-table{border-collapse:collapse;border-spacing:0}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+tt,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol,
+ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
 /*</reset>*/
 
 /*<keyframes>*/
 
-@keyframes rotate{
-	0%{
+@keyframes rotate {
+	0% {
 		transform: rotate(0deg);
 	}
-	25%{
+	25% {
 		transform: rotate(90deg);
 	}
-	50%{
+	50% {
 		transform: rotate(180deg);
 	}
-	75%{
+	75% {
 		transform: rotate(270deg);
 	}
-	100%{
+	100% {
 		transform: rotate(360deg);
 	}
 }
 
 /*</keyframes>*/
 
-body{
-	overflow: hidden;
+body {
+	padding: 48px;
 }
 
-.fifteen_container{
-	width: 500px;
-	margin: 0 auto;
+.fifteen_container {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	min-height: 100vh;
 }
 
-.fifteen_field{
+.fifteen_field {
 	display: block;
 	position: relative;
 	width: 500px;
@@ -47,7 +139,7 @@ body{
 	border: 5px double black;
 }
 
-.fifteen_field .item{
+.fifteen_field .item {
 	display: inline-block;
 	position: absolute;
 	top: 0;
@@ -56,7 +148,7 @@ body{
 	width: calc(25% - 4px);
 	height: calc(25% - 4px);
 	margin: 2px;
-	background-color: #D18339;
+	background-color: #d18339;
 	cursor: pointer;
 	color: black;
 	font-family: "Comic Sans MS";
@@ -68,22 +160,22 @@ body{
 	transition-duration: 100ms;
 	transition-timing-function: ease-in;
 	-webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-	background-image: radial-gradient(transparent 60%, rgba(0,0,0,.2));
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: radial-gradient(transparent 60%, rgba(0, 0, 0, 0.2));
 }
 
-.fifteen_field.flushing .item{
+.fifteen_field.flushing .item {
 	transition-duration: 40ms;
 }
 
-.fifteen_field.win .item{
+.fifteen_field.win .item {
 	opacity: 0;
 	pointer-events: none;
 }
 
-.fifteen_container button.refresh{
+.fifteen_container button.refresh {
 	width: 100px;
 	height: 100px;
 	border: 0;
@@ -96,11 +188,11 @@ body{
 	cursor: pointer;
 }
 
-.fifteen_container button.refresh.active{
+.fifteen_container button.refresh.active {
 	animation: 1s rotate linear infinite;
 }
 
-.fifteen_container .fifteen_field .congratulations{
+.fifteen_container .fifteen_field .congratulations {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -121,18 +213,16 @@ body{
 	background-position: center;
 }
 
-
-
-.fifteen_container .fifteen_field.win .congratulations{
+.fifteen_container .fifteen_field.win .congratulations {
 	opacity: 1;
 	transition-duration: 7s;
 }
 
-.fifteen_container .fifteen_field .congratulations .text{
+.fifteen_container .fifteen_field .congratulations .text {
 	display: block;
 	width: 100%;
 	margin-top: 25%;
-	background-color: rgba(255, 100, 95, .5);
+	background-color: rgba(255, 100, 95, 0.5);
 	font-size: 45px;
 	text-align: center;
 }
