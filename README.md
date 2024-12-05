@@ -4,8 +4,8 @@ A minimalistic JavaScript implementation of the [Game of Fifteen](https://en.wik
 
 https://github.com/user-attachments/assets/26a077d9-6cc0-4c4a-8fda-cf550bca01a8
 
-## Special features
+## Features
 
--   Fancy shuffle animation
--   Fancy winning animation
+-   Fancy animations
+-   Moving multiple tiles at once
 -   Tile move audio
