@@ -5,20 +5,19 @@ const DIRECTION_RIGHT = 1;
 const DIRECTION_DOWN = 2;
 const DIRECTION_LEFT = 4;
 
-const ITEMS_VERTICAL = 4;
-const ITEMS_HORIZONTAL = 4;
-
 class Fifteen_game {
 	constructor(parent_node) {
+		this.items_horizontal = 4;
+		this.items_vertical = 4;
 		var this_game = this;
-		var field_width = ITEMS_HORIZONTAL * 125 + "px";
-		var field_height = ITEMS_VERTICAL * 125 + "px";
+		var field_width = this.items_horizontal * 125 + "px";
+		var field_height = this.items_vertical * 125 + "px";
 		this.finished = false;
 		this.animation_style = document.head.appendChild(
 			document.createElement("style")
 		);
 		this.map = [];
-		for (var i = 0; i < ITEMS_HORIZONTAL; i++) {
+		for (var i = 0; i < this.items_horizontal; i++) {
 			this.map[i] = [];
 		}
 
@@ -34,16 +33,17 @@ class Fifteen_game {
 		this.main_node.style.width = field_width;
 		this.main_node.style.height = field_height;
 
-		this.refresh_button_node = this.container_node.appendChild(
+		this.shuffle_button_node = this.container_node.appendChild(
 			document.createElement("button")
 		);
-		this.refresh_button_node.classList.add("refresh");
-		this.refresh_button_node.addEventListener("click", function () {
-			this_game.refresh_click(this_game);
+		this.shuffle_button_node.textContent = "Shuffle";
+		this.shuffle_button_node.classList.add("shuffle");
+		this.shuffle_button_node.addEventListener("click", function () {
+			this_game.shuffle_click(this_game);
 		});
 
-		for (var y = 0; y < ITEMS_VERTICAL; y++) {
-			for (var x = 0; x < ITEMS_HORIZONTAL; x++) {
+		for (var y = 0; y < this.items_vertical; y++) {
+			for (var x = 0; x < this.items_horizontal; x++) {
 				this.animation_style.innerText += `
 				.fifteen_field.win .item[data-x="${x}"][data-y="${y}"]{
 					transition-duration: ${rnd_num(10, 30)}s;
@@ -60,14 +60,17 @@ class Fifteen_game {
 					opacity: 0;
 				}`;
 
-				if (x === ITEMS_HORIZONTAL - 1 && y === ITEMS_VERTICAL - 1) {
+				if (
+					x === this.items_horizontal - 1 &&
+					y === this.items_vertical - 1
+				) {
 					this.map[x][y] = null;
 					continue;
 				}
 				var cur_item = this.main_node.appendChild(
 					document.createElement("div")
 				);
-				cur_item.textContent = ITEMS_HORIZONTAL * y + x + 1;
+				cur_item.textContent = this.items_horizontal * y + x + 1;
 				cur_item.classList.add("item");
 				cur_item.dataset.x = x;
 				cur_item.dataset.y = y;
@@ -75,7 +78,7 @@ class Fifteen_game {
 					this_game.click(this, this_game);
 				});
 				this.map[x][y] = {
-					n: ITEMS_HORIZONTAL * y + x + 1,
+					n: this.items_horizontal * y + x + 1,
 					node: cur_item,
 				};
 			}
@@ -98,13 +101,13 @@ class Fifteen_game {
 	}
 
 	start() {
-		this.flush();
+		this.shuffle();
 		this.update_layout();
 		this.finished = false;
 		this.main_node.classList.remove("win");
 	}
 
-	flush() {
+	shuffle() {
 		shuffle_x2_array(this.map);
 	}
 
@@ -133,10 +136,12 @@ class Fifteen_game {
 	}
 
 	move(x, y, direction) {
-		if (x === ITEMS_HORIZONTAL - 1 && direction === DIRECTION_RIGHT) return;
+		if (x === this.items_horizontal - 1 && direction === DIRECTION_RIGHT)
+			return;
 		if (x === 0 && direction === DIRECTION_LEFT) return;
 		if (y === 0 && direction === DIRECTION_UP) return;
-		if (y === ITEMS_VERTICAL - 1 && direction === DIRECTION_DOWN) return;
+		if (y === this.items_vertical - 1 && direction === DIRECTION_DOWN)
+			return;
 		var next_x, next_y;
 
 		switch (direction) {
@@ -182,13 +187,13 @@ class Fifteen_game {
 				this.map[x][y].node.dataset.y = y;
 
 				this.map[x][y].node.style.width =
-					"calc(" + 100 / ITEMS_HORIZONTAL + "% - 4px)";
+					"calc(" + 100 / this.items_horizontal + "% - 4px)";
 				this.map[x][y].node.style.height =
-					"calc(" + 100 / ITEMS_VERTICAL + "% - 4px)";
+					"calc(" + 100 / this.items_vertical + "% - 4px)";
 				this.map[x][y].node.style.left =
-					x * (100 / ITEMS_HORIZONTAL) + "%";
+					x * (100 / this.items_horizontal) + "%";
 				this.map[x][y].node.style.top =
-					y * (100 / ITEMS_VERTICAL) + "%";
+					y * (100 / this.items_vertical) + "%";
 			}
 		}
 	}
@@ -202,10 +207,10 @@ class Fifteen_game {
 	}
 
 	is_completed() {
-		for (var y = 0; y < ITEMS_VERTICAL; y++) {
-			for (var x = 0; x < ITEMS_HORIZONTAL; x++) {
+		for (var y = 0; y < this.items_vertical; y++) {
+			for (var x = 0; x < this.items_horizontal; x++) {
 				if (this.map[x][y] === null) continue;
-				if (this.map[x][y].n !== y * ITEMS_HORIZONTAL + x + 1)
+				if (this.map[x][y].n !== y * this.items_horizontal + x + 1)
 					return false;
 			}
 		}
@@ -217,8 +222,8 @@ class Fifteen_game {
 		this.main_node.classList.add("win");
 	}
 
-	refresh_click(this_game) {
-		this_game.flush();
+	shuffle_click(this_game) {
+		this_game.shuffle();
 		this_game.update_layout();
 	}
 }
