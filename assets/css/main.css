@@ -128,7 +128,7 @@ body {
 	display: grid;
 	justify-content: center;
 	align-content: center;
-	min-height: 100vh;
+	min-height: calc(100vh - 48px * 2);
 }
 
 .fifteen_field {
